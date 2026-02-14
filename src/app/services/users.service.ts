@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, of, delay, map } from 'rxjs';
 import { User } from '../models/user.model';
-import { HttpClient } from '@angular/common/http';
-import { ApiResult } from '../models/api-result.model';
+import { MockResult } from '../mock-data';
+import { UserResult } from '../models/api-result.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private apiUrl = 'https://randomuser.me/api';
-
-  constructor(private httpClient: HttpClient) {}
-
   /**
-   * Fetches 5000 mock users from the api
-   * @param {number} page
-   * @returns {Observable<User[]>}
+   * Simulates fetching 5000 users from an API using mock data.
+   * The original randomuser.me API is unavailable, so we use the provided
+   * mock data (300 entries) and cycle it to reach the target count.
    */
-  getUsers(page = 1): Observable<User[]> {
-    return this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
-      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+  getUsers(page = 1, count = 5000): Observable<User[]> {
+    const baseResults = MockResult.results as UserResult[];
+    const results: UserResult[] = [];
+
+    for (let i = 0; i < count; i++) {
+      results.push(baseResults[i % baseResults.length]);
+    }
+
+    return of(results).pipe(
+      delay(500),
+      map((users) => User.mapFromUserResult(users)),
+    );
   }
 }
