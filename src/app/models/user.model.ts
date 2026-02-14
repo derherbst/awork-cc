@@ -16,6 +16,8 @@ export class User {
   email?: string;
   phone?: string;
   image?: string;
+  gender?: string;
+  age?: number;
   nat?: string;
   login?: LoginInfo;
 
@@ -37,6 +39,8 @@ export class User {
    * @returns {User[]}
    */
   static mapFromUserResult(userResults: UserResult[]): User[] {
+    console.log('🚀 ~ User ~ mapFromUserResult ~ userResults:', userResults);
+
     return userResults.map(
       (user) =>
         new User({
@@ -47,6 +51,8 @@ export class User {
           image: user.picture.medium,
           nat: user.nat,
           login: user.login,
+          gender: user.gender,
+          age: user.dob.age,
         }),
     );
   }

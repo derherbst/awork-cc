@@ -10,12 +10,19 @@ export interface Picture {
   thumbnail: string;
 }
 
+export interface DateOfBirth {
+  age: number;
+  date: string;
+}
+
 export interface UserResult {
   name: Name;
   email: string;
   phone: string;
   picture: Picture;
   nat: string;
+  gender: string;
+  dob: DateOfBirth;
   login: {
     uuid: string;
     username: string;

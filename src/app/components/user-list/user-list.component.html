@@ -1,8 +1,16 @@
 @if (users().length) {
   <article class="user-list">
-    @for (user of users(); track $index) {
+    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+      <div
+        *cdkVirtualFor="let user of users(); let i = index"
+        class="example-item"
+      >
+        <app-user-item [user]="user" [allUsers]="users()" />
+      </div>
+    </cdk-virtual-scroll-viewport>
+    <!-- @for (user of users(); track $index) {
       <app-user-item [user]="user" [allUsers]="users()" />
-    }
+    } -->
   </article>
 } @else {
   <article class="user-list">

@@ -8,7 +8,11 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    max-width: 60%;
+    max-width: 90%;
     padding: 12px;
+  }
+
+  .example-viewport {
+    height: 80vh;
   }
 }
