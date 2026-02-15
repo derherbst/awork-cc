@@ -10,6 +10,10 @@
     height: 60px;
     padding: 12px 12px 12px 40px;
     color: $color-night;
+    cursor: pointer;
+    &:hover {
+      background-color: $gray-light-25;
+    }
 
     &__image {
       border-radius: 20%;
@@ -44,6 +48,40 @@
       margin-left: 12px;
       text-align: right;
       width: 80px;
+    }
+
+    &__details {
+      display: flex;
+      gap: $spacing-xl;
+      padding: $spacing-l $spacing-l $spacing-l $spacing-xxxxl * 3;
+      background-color: $color-ice;
+      border-bottom: 1px solid $color-fog;
+    }
+
+    &__details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-m $spacing-xxl;
+      flex: 1;
+    }
+
+    &__details-field {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xxs;
+    }
+
+    &__details-label {
+      font-size: $font-size-tiny;
+      font-weight: $font-weight-semi;
+      color: $color-steel;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    &__details-value {
+      font-size: $font-size-normal;
+      color: $color-night;
     }
   }
 }

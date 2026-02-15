@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
 })
 export class UserItemComponent {
   user = input.required<User>();
-  expanded = true;
+  expanded = false;
 
   toggleExpand() {
     this.expanded = !this.expanded;

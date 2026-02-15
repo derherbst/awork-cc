@@ -61,12 +61,33 @@
 
     &__group {
       &:not(:last-child) {
-        border-bottom: 1px solid $color-fog;
+        border-bottom: 2px solid $color-fog;
       }
     }
 
-    &__header,
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 $spacing-xxl;
+      background: $color-fog;
+    }
+
     &__row {
+      display: flex;
+      align-items: center;
+      gap: $spacing-l;
+      height: 60px;
+      padding: 0 $spacing-l 0 40px;
+      border-bottom: 1px solid $color-fog;
+    }
+
+    &__block {
+      display: inline-block;
+      height: 14px;
+      border-radius: 4px;
+      background: $color-fog;
       position: relative;
       overflow: hidden;
 
@@ -80,22 +101,22 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0.5),
           transparent
         );
         animation: shimmer 1.5s infinite;
       }
-    }
 
-    &__header {
-      height: 60px;
-      background: $color-fog;
-    }
+      &--small {
+        height: 10px;
+      }
 
-    &__row {
-      height: 60px;
-      background: $color-fog;
-      border-bottom: 1px solid $color-fog;
+      &--circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 20%;
+        flex-shrink: 0;
+      }
     }
   }
 

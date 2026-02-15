@@ -1,4 +1,10 @@
-import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { UsersService } from './services/users.service';
 import { User } from './models/user.model';
@@ -68,7 +74,7 @@ export class AppComponent implements OnInit {
       .groupUsers(this.users, criterion)
       .subscribe((groups) => {
         this.groups = groups;
-        this.expandedGroups = new Set(groups.map((g) => g.name));
+        this.expandedGroups = new Set([groups[0].name]);
         this.rows.set(flattenGroups(groups, this.expandedGroups));
         this.loading.set(false);
       });

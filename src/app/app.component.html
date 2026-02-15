@@ -17,12 +17,21 @@
 
 @if (loading()) {
   <div class="skeleton">
-    @for (i of [1,2,3,4,5]; track i) {
+    @for (i of [1, 2]; track i) {
       <div class="skeleton__group">
-        <div class="skeleton__header"></div>
-        <div class="skeleton__row"></div>
-        <div class="skeleton__row"></div>
-        <div class="skeleton__row"></div>
+        <div class="skeleton__header">
+          <span class="skeleton__block" style="width: 200px"></span>
+          <span class="skeleton__block skeleton__block--small" style="width: 80px"></span>
+        </div>
+        @for (j of [1, 2, 3]; track j) {
+          <div class="skeleton__row">
+            <span class="skeleton__block skeleton__block--circle"></span>
+            <span class="skeleton__block" style="width: 140px"></span>
+            <span class="skeleton__block" style="width: 200px"></span>
+            <span class="skeleton__block" style="width: 100px"></span>
+            <span class="skeleton__block skeleton__block--small" style="width: 80px"></span>
+          </div>
+        }
       </div>
     }
   </div>

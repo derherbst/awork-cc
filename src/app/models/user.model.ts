@@ -19,6 +19,9 @@ export class User {
   gender?: string;
   age?: number;
   nat?: string;
+  city?: string;
+  country?: string;
+  username?: string;
   login?: LoginInfo;
   registeredAt?: string;
 
@@ -52,6 +55,9 @@ export class User {
           login: user.login,
           gender: user.gender,
           age: user.dob.age,
+          city: user.location.city,
+          country: user.location.country,
+          username: user.login.username,
           registeredAt: user.registered.date,
         }),
     );

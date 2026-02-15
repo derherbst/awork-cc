@@ -20,6 +20,24 @@ export interface DatOfRegistration {
   date: string;
 }
 
+export interface Location {
+  city: string;
+  state: string;
+  country: string;
+  postcode: string | number;
+  street: {
+    number: number;
+    name: string;
+  };
+  coordinates: {
+    latitude: string;
+    longitude: string;
+  };
+  timezone: {
+    offset: string;
+    description: string;
+  };
+}
 export interface UserResult {
   name: Name;
   email: string;
@@ -29,6 +47,7 @@ export interface UserResult {
   gender: string;
   dob: DateOfBirth;
   registered: DatOfRegistration;
+  location: Location;
   login: {
     uuid: string;
     username: string;
