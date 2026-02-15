@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 
   rows = signal<ListRow[]>([]);
   loading = signal<boolean>(true);
+  loadingMore = signal<boolean>(false);
   activeCriterion = signal<string>('nationality');
   searchTerm = signal<string>('');
   criteria = ['nationality', 'alphabetical', 'age'];
@@ -37,10 +38,20 @@ export class AppComponent implements OnInit {
   private users: User[] = [];
   private groups: UserGroup[] = [];
   private expandedGroups = new Set<string>();
+  private currentPage = 1;
 
   ngOnInit(): void {
+    this.fetchPage(1);
+  }
+
+  loadMore() {
+    this.loadingMore.set(true);
+    this.fetchPage(this.currentPage + 1);
+  }
+
+  private fetchPage(page: number) {
     this.usersService
-      .getUsers()
+      .getUsers(page)
       .pipe(
         catchError((err) => {
           console.log(err);
@@ -48,8 +59,10 @@ export class AppComponent implements OnInit {
         }),
       )
       .subscribe((users) => {
-        this.users = users;
+        this.currentPage = page;
+        this.users = [...this.users, ...users];
         this.regroup(this.activeCriterion());
+        this.loadingMore.set(false);
       });
   }
 

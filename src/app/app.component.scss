@@ -151,6 +151,32 @@
     }
   }
 
+  .load-more {
+    display: flex;
+    justify-content: center;
+    padding: $spacing-l;
+
+    &__btn {
+      padding: $spacing-s $spacing-xxl;
+      border: 1px solid $color-fog;
+      border-radius: $border-size-s;
+      background: $color-white;
+      color: $color-night;
+      font-size: $font-size-normal;
+      cursor: pointer;
+
+      &:hover:not(:disabled) {
+        background: $color-sky;
+        border-color: $color-sky;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
   @keyframes shimmer {
     0% {
       transform: translateX(-100%);

@@ -10,13 +10,13 @@ import { MockResult } from '../mock-data';
 })
 export class UsersService {
   private apiUrl = 'https://randomuser.me/api';
-  private cache$: Observable<User[]> | null = null;
+  private pageCache = new Map<number, Observable<User[]>>();
 
   constructor(private httpClient: HttpClient) {}
 
   getUsers(page = 1): Observable<User[]> {
-    if (!this.cache$) {
-      this.cache$ = this.httpClient
+    if (!this.pageCache.has(page)) {
+      const page$ = this.httpClient
         .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
         .pipe(
           map((apiResult) => User.mapFromUserResult(apiResult.results)),
@@ -27,7 +27,8 @@ export class UsersService {
           }),
           shareReplay(1),
         );
+      this.pageCache.set(page, page$);
     }
-    return this.cache$;
+    return this.pageCache.get(page)!;
   }
 }

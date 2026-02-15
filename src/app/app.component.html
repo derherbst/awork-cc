@@ -50,4 +50,17 @@
     [criterion]="activeCriterion()"
     (headerToggle)="toggleGroup($event)"
   ></app-user-list>
+  <div class="load-more">
+    <button
+      class="load-more__btn"
+      (click)="loadMore()"
+      [disabled]="loadingMore()"
+    >
+      @if (loadingMore()) {
+        Loading…
+      } @else {
+        Load more users
+      }
+    </button>
+  </div>
 }
