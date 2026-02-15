@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { ListRow } from '../../services/grouping.service';
 import { CountryNamePipe } from '../../pipes/country-name.pipe';
@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
   imports: [UserItemComponent, CountryNamePipe, CountryFlagPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
   rows = input.required<ListRow[]>();

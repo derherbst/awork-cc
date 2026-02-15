@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '../../models/user.model';
 import { DatePipe } from '@angular/common';
 
@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './user-item.component.html',
   styleUrl: './user-item.component.scss',
   imports: [DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserItemComponent {
   user = input.required<User>();

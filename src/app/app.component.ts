@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { UsersService } from './services/users.service';
 import { User } from './models/user.model';
@@ -16,6 +16,7 @@ import {
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   imports: [UserListComponent, TitleCasePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   usersService = inject(UsersService);
