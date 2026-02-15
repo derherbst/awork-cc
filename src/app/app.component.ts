@@ -1,22 +1,35 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UsersService } from './services/users.service'
-import { User } from './models/user.model'
-import { UserListComponent } from './components/user-list/user-list.component'
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { UsersService } from './services/users.service';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { catchError } from 'rxjs';
+import { GroupingService, ListRow, flattenGroups } from './services/grouping.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [UserListComponent]
+  imports: [UserListComponent],
 })
 export class AppComponent implements OnInit {
-  usersService = inject(UsersService)
-
-  users: User[] = []
+  usersService = inject(UsersService);
+  groupingService = inject(GroupingService);
+  rows = signal<ListRow[]>([]);
 
   ngOnInit(): void {
-    this.usersService.getUsers().subscribe(users => {
-      this.users = users
-    })
+    this.usersService
+      .getUsers()
+      .pipe(
+        catchError((err) => {
+          console.log(err);
+          throw err;
+        }),
+      )
+      .subscribe((users) => {
+        this.groupingService
+          .groupUsers(users, 'nationality')
+          .subscribe((groups) => {
+            this.rows.set(flattenGroups(groups));
+          });
+      });
   }
 }

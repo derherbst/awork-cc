@@ -1,16 +1,14 @@
-@if (users().length) {
+@if (rows().length) {
   <article class="user-list">
-    <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-      <div
-        *cdkVirtualFor="let user of users(); let i = index"
-        class="example-item"
-      >
-        <app-user-item [user]="user" [allUsers]="users()" />
+    <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
+      <div *cdkVirtualFor="let row of rows()">
+        @if (row.type === 'header') {
+          <div class="group-header">{{ row.name | countryName }} ({{ row.count }})</div>
+        } @else {
+          <app-user-item [user]="row.user" />
+        }
       </div>
     </cdk-virtual-scroll-viewport>
-    <!-- @for (user of users(); track $index) {
-      <app-user-item [user]="user" [allUsers]="users()" />
-    } -->
   </article>
 } @else {
   <article class="user-list">

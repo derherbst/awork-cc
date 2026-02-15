@@ -8,18 +8,9 @@ import { User } from '../../models/user.model';
 })
 export class UserItemComponent {
   user = input.required<User>();
-  allUsers = input.required<User[]>();
+  expanded = false;
 
-  /**
-   * Get the count of users with same nationality
-   */
-  // get nationalitiesCount(): number {
-  //   if (!this.allUsers().length) {
-  //     return 0
-  //   }
-
-  //   return this.allUsers().reduce((acc, user) => {
-  //     return user.nat === this.user().nat ? acc + 1 : acc
-  //   }, 0)
-  // }
+  toggleExpand() {
+    this.expanded = !this.expanded;
+  }
 }

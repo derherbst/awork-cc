@@ -1,29 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay, map } from 'rxjs';
+import { Observable, of, map, shareReplay, catchError } from 'rxjs';
 import { User } from '../models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { ApiResult, UserResult } from '../models/api-result.model';
 import { MockResult } from '../mock-data';
-import { UserResult } from '../models/api-result.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  /**
-   * Simulates fetching 5000 users from an API using mock data.
-   * The original randomuser.me API is unavailable, so we use the provided
-   * mock data (300 entries) and cycle it to reach the target count.
-   */
-  getUsers(page = 1, count = 5000): Observable<User[]> {
-    const baseResults = MockResult.results as UserResult[];
-    const results: UserResult[] = [];
+  private apiUrl = 'https://randomuser.me/api';
+  private cache$: Observable<User[]> | null = null;
 
-    for (let i = 0; i < count; i++) {
-      results.push(baseResults[i % baseResults.length]);
+  constructor(private httpClient: HttpClient) {}
+
+  getUsers(page = 1): Observable<User[]> {
+    if (!this.cache$) {
+      this.cache$ = this.httpClient
+        .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
+        .pipe(
+          map((apiResult) => User.mapFromUserResult(apiResult.results)),
+          catchError(() => {
+            console.warn('API unavailable, falling back to mock data');
+            const mockResults = MockResult.results as UserResult[];
+            return of(User.mapFromUserResult(mockResults));
+          }),
+          shareReplay(1),
+        );
     }
-
-    return of(results).pipe(
-      delay(500),
-      map((users) => User.mapFromUserResult(users)),
-    );
+    return this.cache$;
   }
 }
