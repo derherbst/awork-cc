@@ -15,6 +15,10 @@
       background-color: $gray-light-25;
     }
 
+    @include media-breakpoint-down(s) {
+      padding-left: 24px;
+    }
+
     &__image {
       border-radius: 20%;
       height: 40px;
@@ -42,12 +46,20 @@
 
     &__phone {
       width: 110px;
+
+      @include media-breakpoint-down(s) {
+        display: none;
+      }
     }
 
     &__nat {
       margin-left: 12px;
       text-align: right;
       width: 80px;
+
+      @include media-breakpoint-down(s) {
+        display: none;
+      }
     }
 
     &__details {
@@ -56,6 +68,10 @@
       padding: $spacing-l $spacing-l $spacing-l $spacing-xxxxl * 3;
       background-color: $color-ice;
       border-bottom: 1px solid $color-fog;
+
+      @include media-breakpoint-down(s) {
+        padding-left: $spacing-xxl;
+      }
     }
 
     &__details-grid {
@@ -63,6 +79,10 @@
       grid-template-columns: repeat(3, 1fr);
       gap: $spacing-m $spacing-xxl;
       flex: 1;
+
+      @include media-breakpoint-down(s) {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     &__details-field {

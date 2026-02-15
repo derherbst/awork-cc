@@ -33,6 +33,13 @@
       gap: $spacing-s;
     }
 
+    @include media-breakpoint-down(s) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-m;
+      width: calc(100vw - $spacing-l);
+    }
+
     &__btn {
       padding: $spacing-s $spacing-l;
       border: 1px solid $color-fog;

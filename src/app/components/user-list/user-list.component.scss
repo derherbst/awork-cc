@@ -13,7 +13,10 @@
     width: calc(100vw - 64px);
     padding: 0;
     overflow: hidden;
-    @include shadow(m);
+
+    @include media-breakpoint-down(s) {
+      width: calc(100vw - $spacing-l);
+    }
   }
 
   .viewport {
@@ -28,10 +31,14 @@
     border-bottom: 1px solid $color-fog;
     background-color: $color-fog;
     color: $color-midnight;
-    font-size: $font-size-tiny;
     font-weight: $font-weight-semi;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    @include font-size(xs);
+
+    @include media-breakpoint-down(s) {
+      padding-left: 24px;
+    }
 
     &__photo {
       width: 40px;
@@ -52,12 +59,20 @@
     &__phone {
       width: 110px;
       margin: 12px;
+
+      @include media-breakpoint-down(s) {
+        display: none;
+      }
     }
 
     &__nat {
       width: 80px;
       margin-left: 12px;
       text-align: right;
+
+      @include media-breakpoint-down(s) {
+        display: none;
+      }
     }
   }
 
@@ -76,6 +91,12 @@
     font-weight: $font-weight-semi;
     color: $color-night;
 
+    @include font-size(l);
+
+    @include media-breakpoint-down(s) {
+      padding-left: 24px;
+    }
+
     &:hover {
       background-color: $color-fog;
     }
@@ -90,16 +111,12 @@
 
     &__arrow {
       width: 20px;
-      font-size: $font-size-small;
+
+      @include font-size(s);
     }
 
     &__name {
       flex: 1;
-    }
-
-    &__count {
-      font-weight: $font-weight-normal;
-      font-size: $font-size-small;
     }
   }
 }
