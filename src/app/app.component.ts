@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
   rows = signal<ListRow[]>([]);
   loading = signal<boolean>(true);
   activeCriterion = signal<string>('nationality');
+  searchTerm = signal<string>('');
   criteria = ['nationality', 'alphabetical', 'age'];
 
   private users: User[] = [];
@@ -60,6 +61,13 @@ export class AppComponent implements OnInit {
     this.regroup(criterion);
   }
 
+  onSearch(event: Event) {
+    const term = (event.target as HTMLInputElement).value.toLowerCase();
+    this.searchTerm.set(term);
+    this.expandedGroups.clear();
+    this.regroup(this.activeCriterion());
+  }
+
   toggleGroup(name: string) {
     if (this.expandedGroups.has(name)) {
       this.expandedGroups.delete(name);
@@ -69,12 +77,18 @@ export class AppComponent implements OnInit {
     this.rows.set(flattenGroups(this.groups, this.expandedGroups));
   }
 
+  private get filteredUsers(): User[] {
+    const term = this.searchTerm();
+    if (!term) return this.users;
+    return this.users.filter((u) => u.lastname?.toLowerCase().startsWith(term));
+  }
+
   private regroup(criterion: string) {
     this.groupingService
-      .groupUsers(this.users, criterion)
+      .groupUsers(this.filteredUsers, criterion)
       .subscribe((groups) => {
         this.groups = groups;
-        this.expandedGroups = new Set([groups[0].name]);
+        this.expandedGroups = new Set(groups.length ? [groups[0].name] : []);
         this.rows.set(flattenGroups(groups, this.expandedGroups));
         this.loading.set(false);
       });

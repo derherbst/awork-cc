@@ -28,9 +28,33 @@
       margin: 0;
     }
 
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: $spacing-l;
+    }
+
     &__nav {
       display: flex;
       gap: $spacing-s;
+    }
+
+    &__search {
+      padding: $spacing-s $spacing-l;
+      border: 1px solid $color-fog;
+      border-radius: $border-size-s;
+      font-size: $font-size-normal;
+      color: $color-night;
+      outline: none;
+      width: 200px;
+
+      &::placeholder {
+        color: $color-steel;
+      }
+
+      &:focus {
+        border-color: $color-sky;
+      }
     }
 
     @include media-breakpoint-down(s) {

@@ -2,17 +2,26 @@
   <div class="app-header__brand">
     <img src="logo.svg" alt="awork logo" class="app-header__logo" />
   </div>
-  <nav class="app-header__nav">
-    @for (c of criteria; track c) {
-      <button
-        class="app-header__btn"
-        [class.app-header__btn--active]="activeCriterion() === c"
-        (click)="switchCriterion(c)"
-      >
-        {{ c | titlecase }}
-      </button>
-    }
-  </nav>
+  <div class="app-header__actions">
+    <nav class="app-header__nav">
+      @for (c of criteria; track c) {
+        <button
+          class="app-header__btn"
+          [class.app-header__btn--active]="activeCriterion() === c"
+          (click)="switchCriterion(c)"
+        >
+          {{ c | titlecase }}
+        </button>
+      }
+    </nav>
+    <input
+      class="app-header__search"
+      type="text"
+      placeholder="Search by last name…"
+      [value]="searchTerm()"
+      (input)="onSearch($event)"
+    />
+  </div>
 </header>
 
 @if (loading()) {
