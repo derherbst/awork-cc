@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserItemComponent } from './user-item.component';
-import { UsersService } from '../../services/users.service';
-import { UsersServiceStub } from '../../services/users.service.stub';
 import { MockResult } from '../../mock-data';
 import { User } from '../../models/user.model';
 import { UserResult } from '../../models/api-result.model';
@@ -17,20 +15,12 @@ describe('UserItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UserItemComponent],
-      providers: [
-        {
-          provide: UsersService,
-          useClass: UsersServiceStub,
-        },
-      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserItemComponent);
     fixture.componentRef.setInput('user', mockedUsers[0]);
-    fixture.componentRef.setInput('allUsers', mockedUsers);
 
     component = fixture.componentInstance;
-
     fixture.detectChanges();
   });
 
@@ -38,8 +28,37 @@ describe('UserItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should calculate the count of users with same nationality', () => {
-  //   const expectedNationalitiesCount = 2;
-  //   expect(component.nationalitiesCount).toEqual(expectedNationalitiesCount);
-  // });
+  it('should not be expanded by default', () => {
+    expect(component.expanded).toBeFalse();
+  });
+
+  it('should toggle expanded on click', () => {
+    component.toggleExpand();
+    expect(component.expanded).toBeTrue();
+
+    component.toggleExpand();
+    expect(component.expanded).toBeFalse();
+  });
+
+  it('should display user name', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const name = el.querySelector('.user-item__name')?.textContent?.trim();
+    expect(name).toContain(mockedUsers[0].firstname);
+    expect(name).toContain(mockedUsers[0].lastname);
+  });
+
+  it('should show details when expanded', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    el.querySelector<HTMLElement>('.user-item')!.click();
+    fixture.detectChanges();
+
+    const details = el.querySelector('.user-item__details');
+    expect(details).toBeTruthy();
+  });
+
+  it('should hide details when collapsed', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const details = el.querySelector('.user-item__details');
+    expect(details).toBeNull();
+  });
 });
