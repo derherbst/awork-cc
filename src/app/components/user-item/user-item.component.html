@@ -6,11 +6,19 @@
   <p class="user-item__nat">{{ user().registeredAt | date: 'MM/dd/yyyy' }}</p>
 </div>
 @if (expanded) {
-  <div class="user-item__details" @slideDetails>
+  <div class="user-item__details">
     <div class="user-item__details-grid">
       <div class="user-item__details-field">
         <span class="user-item__details-label">Username</span>
         <span class="user-item__details-value">{{ user().username }}</span>
+      </div>
+      <div class="user-item__details-field user-item__details-field--mobile-only">
+        <span class="user-item__details-label">Phone</span>
+        <span class="user-item__details-value">{{ user().phone }}</span>
+      </div>
+      <div class="user-item__details-field user-item__details-field--mobile-only">
+        <span class="user-item__details-label">Email</span>
+        <span class="user-item__details-value">{{ user().email }}</span>
       </div>
       <div class="user-item__details-field">
         <span class="user-item__details-label">Age</span>
@@ -28,11 +36,8 @@
         <span class="user-item__details-label">Country</span>
         <span class="user-item__details-value">{{ user().country }}</span>
       </div>
-      <div class="user-item__details-field">
-        <span class="user-item__details-label">Phone</span>
-        <span class="user-item__details-value">{{ user().phone }}</span>
-      </div>
-      <div class="user-item__details-field">
+
+      <div class="user-item__details-field user-item__details-field--mobile-only">
         <span class="user-item__details-label">Registered</span>
         <span class="user-item__details-value">{{
           user().registeredAt | date: 'MM/dd/yyyy'

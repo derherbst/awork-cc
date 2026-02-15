@@ -54,6 +54,10 @@
     &__email {
       width: 220px;
       margin: 12px;
+
+      @include media-breakpoint-down(s) {
+        display: none;
+      }
     }
 
     &__phone {
