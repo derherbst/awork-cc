@@ -20,6 +20,7 @@ export class User {
   age?: number;
   nat?: string;
   login?: LoginInfo;
+  registeredAt?: string;
 
   constructor(data: Partial<User> = {}) {
     Object.assign(this, data);
@@ -39,8 +40,6 @@ export class User {
    * @returns {User[]}
    */
   static mapFromUserResult(userResults: UserResult[]): User[] {
-    console.log('🚀 ~ User ~ mapFromUserResult ~ userResults:', userResults);
-
     return userResults.map(
       (user) =>
         new User({
@@ -53,6 +52,7 @@ export class User {
           login: user.login,
           gender: user.gender,
           age: user.dob.age,
+          registeredAt: user.registered.date,
         }),
     );
   }

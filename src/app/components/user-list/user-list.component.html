@@ -1,14 +1,32 @@
 @if (rows().length) {
   <article class="user-list">
-    <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
-      <div *cdkVirtualFor="let row of rows()">
-        @if (row.type === 'header') {
-          <div class="group-header">{{ row.name | countryName }} ({{ row.count }})</div>
-        } @else {
-          <app-user-item [user]="row.user" />
-        }
-      </div>
-    </cdk-virtual-scroll-viewport>
+    @for (row of rows(); track $index) {
+      @if (row.type === 'header') {
+        <div
+          class="group-header"
+          [class.group-header--expanded]="row.expanded"
+          (click)="onHeaderClick(row.name)"
+        >
+          @if (criterion() === 'nationality') {
+            <span class="group-header__flag">{{ row.name | countryFlag }}</span>
+            <span class="group-header__name">{{ row.name | countryName }}</span>
+          } @else {
+            <span class="group-header__name">{{ row.name }}</span>
+          }
+          <span class="group-header__count">{{ row.count }} users</span>
+        </div>
+      } @else if (row.type === 'column-header') {
+        <div class="column-header">
+          <!-- <span class="column-header__photo"></span> -->
+          <span class="column-header__name">Name</span>
+          <span class="column-header__email">Email</span>
+          <span class="column-header__phone">Phone</span>
+          <span class="column-header__nat">Registered</span>
+        </div>
+      } @else {
+        <app-user-item [user]="row.user" />
+      }
+    }
   </article>
 } @else {
   <article class="user-list">

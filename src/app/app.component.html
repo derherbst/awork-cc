@@ -1,5 +1,35 @@
-<header>
-  <img src="logo.svg" alt="awork logo" />
+<header class="app-header">
+  <div class="app-header__brand">
+    <img src="logo.svg" alt="awork logo" class="app-header__logo" />
+  </div>
+  <nav class="app-header__nav">
+    @for (c of criteria; track c) {
+      <button
+        class="app-header__btn"
+        [class.app-header__btn--active]="activeCriterion() === c"
+        (click)="switchCriterion(c)"
+      >
+        {{ c | titlecase }}
+      </button>
+    }
+  </nav>
 </header>
 
-<app-user-list [rows]="rows()"></app-user-list>
+@if (loading()) {
+  <div class="skeleton">
+    @for (i of [1,2,3,4,5]; track i) {
+      <div class="skeleton__group">
+        <div class="skeleton__header"></div>
+        <div class="skeleton__row"></div>
+        <div class="skeleton__row"></div>
+        <div class="skeleton__row"></div>
+      </div>
+    }
+  </div>
+} @else {
+  <app-user-list
+    [rows]="rows()"
+    [criterion]="activeCriterion()"
+    (headerToggle)="toggleGroup($event)"
+  ></app-user-list>
+}

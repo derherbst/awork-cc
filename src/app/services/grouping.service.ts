@@ -8,15 +8,20 @@ export interface UserGroup {
 }
 
 export type ListRow =
-  | { type: 'header'; name: string; count: number }
+  | { type: 'header'; name: string; count: number; expanded: boolean }
+  | { type: 'column-header' }
   | { type: 'user'; user: User };
 
-export function flattenGroups(groups: UserGroup[]): ListRow[] {
+export function flattenGroups(groups: UserGroup[], expandedGroups: Set<string>): ListRow[] {
   const rows: ListRow[] = [];
   for (const group of groups) {
-    rows.push({ type: 'header', name: group.name, count: group.users.length });
-    for (const user of group.users) {
-      rows.push({ type: 'user', user });
+    const expanded = expandedGroups.has(group.name);
+    rows.push({ type: 'header', name: group.name, count: group.users.length, expanded });
+    if (expanded) {
+      rows.push({ type: 'column-header' });
+      for (const user of group.users) {
+        rows.push({ type: 'user', user });
+      }
     }
   }
   return rows;
@@ -43,7 +48,7 @@ export class GroupingService {
         subject.complete();
       };
 
-      this.worker.postMessage({ users, groupBy });
+      this.worker.postMessage({ users, criterion: groupBy });
     }
 
     return subject.asObservable();

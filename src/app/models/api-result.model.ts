@@ -15,6 +15,11 @@ export interface DateOfBirth {
   date: string;
 }
 
+export interface DatOfRegistration {
+  age: number;
+  date: string;
+}
+
 export interface UserResult {
   name: Name;
   email: string;
@@ -23,6 +28,7 @@ export interface UserResult {
   nat: string;
   gender: string;
   dob: DateOfBirth;
+  registered: DatOfRegistration;
   login: {
     uuid: string;
     username: string;

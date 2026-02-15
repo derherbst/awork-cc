@@ -1,13 +1,13 @@
 <div class="user-item" (dblclick)="toggleExpand()">
-  <img class="user-item__image" [src]="user().image" />
+  <img class="user-item__image" [src]="user().image" loading="lazy" />
   <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
   <p class="user-item__email">{{ user().email }}</p>
   <p class="user-item__phone">{{ user().phone }}</p>
-  <p class="user-item__nat">{{ user().nat }}</p>
+  <p class="user-item__nat">{{ user().registeredAt | date: 'MM/dd/yyyy' }}</p>
 </div>
-@if (expanded) {
+<!-- @if (expanded) {
   <div class="user-item__details">
-    <img class="user-item__image" [src]="user().imageSrc" />
+    <img class="user-item__image" [src]="user().image" />
 
     <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
 
@@ -15,4 +15,4 @@
 
     <p class="user-item__phone">{{ user().phone }}</p>
   </div>
-}
+} -->

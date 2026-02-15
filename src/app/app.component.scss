@@ -1,10 +1,110 @@
+@use 'ease/ease-import.scss' as *;
+
 :host {
-  header {
-    height: 200px;
-    text-align: center;
-    box-sizing: border-box;
+  .app-header {
+    margin: 0 auto;
+    max-width: 1600px;
+    width: calc(100vw - 64px);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    padding: $spacing-l $spacing-xxl;
+    margin-bottom: $spacing-l;
+
+    &__brand {
+      display: flex;
+      align-items: center;
+      gap: $spacing-s;
+    }
+
+    &__logo {
+      height: 40px;
+    }
+
+    &__title {
+      font-size: $font-size-h1;
+      font-weight: $font-weight-bold;
+      color: $color-night;
+      margin: 0;
+    }
+
+    &__nav {
+      display: flex;
+      gap: $spacing-s;
+    }
+
+    &__btn {
+      padding: $spacing-s $spacing-l;
+      border: 1px solid $color-fog;
+      border-radius: $border-size-s;
+      background: $color-white;
+      color: $color-night;
+      font-size: $font-size-normal;
+      cursor: pointer;
+
+      &--active {
+        background: $color-sky;
+        border-color: $color-sky;
+      }
+    }
+  }
+
+  .skeleton {
+    max-width: 1600px;
+    width: calc(100vw - 64px);
+    margin: 0 auto;
+    border-radius: $border-size-m;
+    border: 1px solid $color-fog;
+    background: $color-white;
+    overflow: hidden;
+    @include shadow(m);
+
+    &__group {
+      &:not(:last-child) {
+        border-bottom: 1px solid $color-fog;
+      }
+    }
+
+    &__header,
+    &__row {
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        animation: shimmer 1.5s infinite;
+      }
+    }
+
+    &__header {
+      height: 60px;
+      background: $color-fog;
+    }
+
+    &__row {
+      height: 60px;
+      background: $color-fog;
+      border-bottom: 1px solid $color-fog;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 }

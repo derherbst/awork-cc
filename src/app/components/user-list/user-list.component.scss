@@ -1,18 +1,102 @@
 @use 'ease/ease-import.scss' as *;
 
 :host {
+  display: block;
   .user-list {
     background-color: $color-white;
-    border-radius: 18px;
-    border: 6px solid $color-sky;
+    border-radius: $border-size-m;
+    border: 1px solid $color-fog;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    max-width: 90%;
-    padding: 12px;
+    max-width: 1600px;
+    width: calc(100vw - 64px);
+    padding: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 64px);
+    @include shadow(m);
   }
 
-  .viewport {
-    height: 80vh;
+  .column-header {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 $spacing-l 0 40px;
+    border-bottom: 1px solid $color-fog;
+    background-color: $color-fog;
+    color: $color-midnight;
+    font-size: $font-size-tiny;
+    font-weight: $font-weight-semi;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &__photo {
+      width: 40px;
+    }
+
+    &__name {
+      flex: 1;
+      min-width: 100px;
+      margin: 12px;
+      margin-left: 0;
+    }
+
+    &__email {
+      width: 220px;
+      margin: 12px;
+    }
+
+    &__phone {
+      width: 110px;
+      margin: 12px;
+    }
+
+    &__nat {
+      width: 80px;
+      margin-left: 12px;
+      text-align: right;
+    }
+  }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0 $spacing-xxl;
+    gap: $spacing-s;
+    flex-shrink: 0;
+    background-color: $color-sky;
+    border-bottom: 1px solid $color-fog;
+    cursor: pointer;
+    font-weight: $font-weight-semi;
+    color: $color-night;
+
+    &:hover {
+      background-color: $color-fog;
+    }
+
+    &--expanded {
+      background-color: $color-sky;
+
+      &:hover {
+        background-color: $color-sky;
+      }
+    }
+
+    &__arrow {
+      width: 20px;
+      font-size: $font-size-small;
+    }
+
+    &__name {
+      flex: 1;
+    }
+
+    &__count {
+      font-weight: $font-weight-normal;
+      font-size: $font-size-small;
+    }
   }
 }
