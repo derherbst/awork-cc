@@ -12,9 +12,12 @@
     max-width: 1600px;
     width: calc(100vw - 64px);
     padding: 0;
-    overflow-y: auto;
-    max-height: calc(100vh - 64px);
+    overflow: hidden;
     @include shadow(m);
+  }
+
+  .viewport {
+    height: calc(100vh - 140px);
   }
 
   .column-header {
