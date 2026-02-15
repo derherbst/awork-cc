@@ -1,6 +1,13 @@
 @if (rows().length) {
   <article class="user-list">
-    @for (row of rows(); track $index) {
+    @for (
+      row of rows();
+      track row.type === 'user'
+        ? row.user.login?.uuid
+        : 'name' in row
+          ? row.name
+          : null
+    ) {
       @if (row.type === 'header') {
         <div
           class="group-header"
