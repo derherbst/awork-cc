@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   inject,
   signal,
   ChangeDetectionStrategy,
@@ -9,7 +10,7 @@ import { TitleCasePipe } from '@angular/common';
 import { UsersService } from './services/users.service';
 import { User } from './models/user.model';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { catchError } from 'rxjs';
+import { Subject, catchError, debounceTime } from 'rxjs';
 import {
   GroupingService,
   UserGroup,
@@ -24,7 +25,7 @@ import {
   imports: [UserListComponent, TitleCasePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   usersService = inject(UsersService);
   groupingService = inject(GroupingService);
 
@@ -39,9 +40,19 @@ export class AppComponent implements OnInit {
   private groups: UserGroup[] = [];
   private expandedGroups = new Set<string>();
   private currentPage = 1;
+  private searchSubject = new Subject<string>();
 
   ngOnInit(): void {
+    this.searchSubject.pipe(debounceTime(200)).subscribe((term) => {
+      this.searchTerm.set(term);
+      this.expandedGroups.clear();
+      this.regroup(this.activeCriterion());
+    });
     this.fetchPage(1);
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubject.complete();
   }
 
   loadMore() {
@@ -76,9 +87,7 @@ export class AppComponent implements OnInit {
 
   onSearch(event: Event) {
     const term = (event.target as HTMLInputElement).value.toLowerCase();
-    this.searchTerm.set(term);
-    this.expandedGroups.clear();
-    this.regroup(this.activeCriterion());
+    this.searchSubject.next(term);
   }
 
   toggleGroup(name: string) {

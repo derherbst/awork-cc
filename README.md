@@ -1,34 +1,57 @@
 # Awork Challenge
 
-Hello ! Welcome to the awork challenge 🤩. We are looking forward to seeing what you will come up with!
+An Angular 20 application that fetches and displays 5000 users from the [randomuser.me](https://randomuser.me/) API with grouping, virtual scrolling, and responsive design.
 
-Let us know if you have any questions and refer to the instructions sent to you. This readme contains mostly the install steps to get up and running with the application in its initial state. Feel free to change as you see fit.
+**Live demo:** https://derherbst.github.io/awork-cc/
 
-### Prerequisites
+## Prerequisites
 
-- Install [Node.js](https://nodejs.org/) which includes [Node Package Manager][npm](https://www.npmjs.com/get-npm)
-- Run `npm install` to install the node packages
+- [Node.js](https://nodejs.org/) v20.19+ or v22.12+ (recommended: v22)
+- npm (included with Node.js)
 
-## Development server
+## Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+npm install
+```
 
-## Code scaffolding
+## Development Server
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm start
+```
+
+Navigate to `http://localhost:4200/`. The app reloads automatically on source changes.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm run build
+```
 
-## Running unit tests
+Build artifacts are stored in the `dist/` directory.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Running Tests
 
-## Running end-to-end tests
+```bash
+# Interactive (opens Chrome)
+npm test
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Headless (CI-friendly)
+npx ng test --watch=false --browsers=ChromeHeadless
+```
 
-## Further help
+## Features
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **5000 users** rendered performantly via CDK virtual scrolling
+- **Grouping by criteria** — nationality, alphabetical (last name), or age ranges
+- **Web Worker** handles grouping computation off the main thread
+- **Expandable details** — click a user to see extra info inline
+- **Client-side search** — filter by last name prefix (no API call)
+- **Load more** — paginated loading, appends next 5000 users to existing groups
+- **Responsive layout** — adapts to mobile screens below 810px
+- **Skeleton loader** — shimmer animation during initial data fetch
+
+## Documentation
+
+See [DOCUMENTATION.md](./DOCUMENTATION.md) for a detailed summary of the approach, architecture decisions, and performance trade-offs.
