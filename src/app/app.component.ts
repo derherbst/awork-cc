@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
       )
       .subscribe((users) => {
         this.currentPage = page;
-        this.users = [...this.users, ...users];
+        this.users.push(...users);
         this.regroup(this.activeCriterion());
         this.loadingMore.set(false);
       });
