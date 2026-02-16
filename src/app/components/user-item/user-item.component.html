@@ -5,8 +5,8 @@
   <p class="user-item__phone">{{ user().phone }}</p>
   <p class="user-item__nat">{{ user().registeredAt | date: 'MM/dd/yyyy' }}</p>
 </div>
-@if (expanded) {
-  <div class="user-item__details">
+<div class="user-item__details" [class.user-item__details--expanded]="expanded">
+  <div class="user-item__details-inner">
     <div class="user-item__details-grid">
       <div class="user-item__details-field">
         <span class="user-item__details-label">Username</span>
@@ -51,4 +51,4 @@
       </div>
     </div>
   </div>
-}
+</div>

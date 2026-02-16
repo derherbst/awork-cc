@@ -15,7 +15,7 @@ describe('UserItemComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [UserItemComponent],
-    }).compileComponents();
+}).compileComponents();
 
     fixture = TestBed.createComponent(UserItemComponent);
     fixture.componentRef.setInput('user', mockedUsers[0]);
@@ -47,18 +47,18 @@ describe('UserItemComponent', () => {
     expect(name).toContain(mockedUsers[0].lastname);
   });
 
-  it('should show details when expanded', () => {
+  it('should add expanded class when expanded', () => {
     const el: HTMLElement = fixture.nativeElement;
     el.querySelector<HTMLElement>('.user-item')!.click();
     fixture.detectChanges();
 
-    const details = el.querySelector('.user-item__details');
+    const details = el.querySelector('.user-item__details--expanded');
     expect(details).toBeTruthy();
   });
 
-  it('should hide details when collapsed', () => {
+  it('should not have expanded class when collapsed', () => {
     const el: HTMLElement = fixture.nativeElement;
-    const details = el.querySelector('.user-item__details');
+    const details = el.querySelector('.user-item__details--expanded');
     expect(details).toBeNull();
   });
 });

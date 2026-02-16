@@ -1,4 +1,9 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { ListRow } from '../../services/grouping.service';
@@ -9,7 +14,12 @@ import { CountryFlagPipe } from '../../pipes/country-flag.pipe';
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  imports: [UserItemComponent, ScrollingModule, CountryNamePipe, CountryFlagPipe],
+  imports: [
+    UserItemComponent,
+    ScrollingModule,
+    CountryNamePipe,
+    CountryFlagPipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
