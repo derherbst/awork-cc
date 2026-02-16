@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     height: 36px;
-    padding: 0 $spacing-l 0 40px;
+    padding: 0 $spacing-l 0 $spacing-xxxxl;
     border-bottom: 1px solid $color-fog;
     background-color: $color-fog;
     color: $color-midnight;
@@ -37,11 +37,7 @@
     @include font-size(xs);
 
     @include media-breakpoint-down(s) {
-      padding-left: 24px;
-    }
-
-    &__photo {
-      width: 40px;
+      padding-left: $spacing-xxl;
     }
 
     &__name {
@@ -98,7 +94,7 @@
     @include font-size(l);
 
     @include media-breakpoint-down(s) {
-      padding-left: 24px;
+      padding-left: $spacing-xxl;
     }
 
     &:hover {
@@ -111,12 +107,6 @@
       &:hover {
         background-color: $color-sky;
       }
-    }
-
-    &__arrow {
-      width: 20px;
-
-      @include font-size(s);
     }
 
     &__name {

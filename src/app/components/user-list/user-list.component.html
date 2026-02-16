@@ -9,8 +9,12 @@
             (click)="onHeaderClick(row.name)"
           >
             @if (criterion() === 'nationality') {
-              <span class="group-header__flag">{{ row.name | countryFlag }}</span>
-              <span class="group-header__name">{{ row.name | countryName }}</span>
+              <span class="group-header__flag">{{
+                row.name | countryFlag
+              }}</span>
+              <span class="group-header__name">{{
+                row.name | countryName
+              }}</span>
             } @else {
               <span class="group-header__name">{{ row.name }}</span>
             }
@@ -31,6 +35,6 @@
   </article>
 } @else {
   <article class="user-list">
-    <p>Loading…</p>
+    <p>No results found</p>
   </article>
 }

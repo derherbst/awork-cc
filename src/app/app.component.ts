@@ -18,6 +18,8 @@ import {
   flattenGroups,
 } from './services/grouping.service';
 
+export type Criteria = 'nationality' | 'alphabetical' | 'age';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,9 +34,9 @@ export class AppComponent implements OnInit, OnDestroy {
   rows = signal<ListRow[]>([]);
   loading = signal<boolean>(true);
   loadingMore = signal<boolean>(false);
-  activeCriterion = signal<string>('nationality');
+  activeCriterion = signal<Criteria>('nationality');
   searchTerm = signal<string>('');
-  criteria = ['nationality', 'alphabetical', 'age'];
+  criteria: Criteria[] = ['nationality', 'alphabetical', 'age'];
 
   private users: User[] = [];
   private groups: UserGroup[] = [];
@@ -77,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  switchCriterion(criterion: string) {
+  switchCriterion(criterion: 'nationality' | 'alphabetical' | 'age') {
     this.activeCriterion.set(criterion);
     this.expandedGroups.clear();
     this.rows.set([]);
